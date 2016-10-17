@@ -1,0 +1,43 @@
+/*
+ * 
+ *
+ * Created: 10/17/2016 2:03:10 PM
+ * Author : Aleja
+ */ 
+
+
+#define F_CPU 1000000
+#include <avr/io.h>
+#include <util/delay.h>
+
+#include "lcd.h"
+
+
+
+int main(void)
+{
+	
+	DDRB &= ~(1 << PINB1);
+	PORTB |= (1 << PINB1);
+	
+
+
+   LCDInit(LS_NONE);
+   LCDClear();
+   
+   
+    while (1) 
+    {
+		if (((PINB & (1 << PINB1)) == 0)) //|| ((PINB & (1 << PINB1)) == 0) || ((PINB & (1 << PINB3)) == 0) || ((PINB & (1 << PINB4)) == 0))		// equivalent to if ((PINB & (1 << PB0)) == 0 ,  (!(PINB & (1 << 0))	//(bit_is_clear(PINB, PB1))
+		{
+			
+			LCDWriteString("SI");
+			
+		}
+		else
+		{
+			LCDWriteString("NO");
+		}
+		
+    }
+}
